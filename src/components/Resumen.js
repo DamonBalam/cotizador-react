@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import styled from '@emotion/styled';
-import { primerMayuscula } from '../helper';
+import {primerMayuscula} from '../helper';
+import PropTypes from 'prop-types';
 
 const ContenedorResumen = styled.div`
     padding: 1rem;
@@ -10,9 +11,9 @@ const ContenedorResumen = styled.div`
     margin-top: 1rem;
 `;
 
-const Resumen = ({ datos }) => {
+const Resumen = ({datos}) => {
     // extraer datos
-    const { marca, year, plan } = datos;
+    const {marca, year, plan} = datos;
 
     if (marca === '' || year === '' || plan === '') return null;
 
@@ -27,5 +28,9 @@ const Resumen = ({ datos }) => {
         </ContenedorResumen>
     );
 };
+
+Resumen.propTypes = {
+    datos: PropTypes.object.isRequired
+}
 
 export default Resumen;

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from '@emotion/styled';
-import { calcularMarca, obtenerDiferenciaYear, obtenerPlan } from '../helper';
+import PropTypes from 'prop-types';
+import {calcularMarca, obtenerDiferenciaYear, obtenerPlan} from '../helper';
 
 const Campo = styled.div`
     display: flex;
@@ -50,7 +51,7 @@ const Error = styled.div`
     text-align: center;
     margin-bottom: 2rem;
 `;
-const Formulario = ({ setResumen }) => {
+const Formulario = ({setResumen, setCargando}) => {
     const [datos, setDatos] = useState({
         marca: '',
         year: '',
@@ -60,7 +61,7 @@ const Formulario = ({ setResumen }) => {
     const [error, setError] = useState(false);
 
     // extraer los valores
-    const { marca, year, plan } = datos;
+    const {marca, year, plan} = datos;
 
     // leer los datos del formulario
     const obtenerInformacion = (e) => {
@@ -95,10 +96,17 @@ const Formulario = ({ setResumen }) => {
 
         resultado = parseFloat(incrementoPlan * resultado).toFixed(2);
 
-        setResumen({
-            cotizacion: resultado,
-            datos
-        });
+        setCargando(true);
+
+
+        setTimeout(() => {
+            setResumen({
+                cotizacion: resultado,
+                datos
+            });
+            setCargando(false);
+        }, 3000)
+
     };
 
     return (
@@ -154,5 +162,10 @@ const Formulario = ({ setResumen }) => {
         </form>
     );
 };
+
+Formulario.propTypes = {
+    setResumen: PropTypes.func.isRequired,
+    setCargando: PropTypes.func.isRequired
+}
 
 export default Formulario;

@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Header from './components/Header';
 import styled from '@emotion/styled';
 import Formulario from './components/Formulario';
 import Resumen from './components/Resumen';
 import Resultado from './components/Resultado';
+import Spinner from "./components/Spinner";
 
 const Contenedor = styled.div`
     max-width: 600px;
     margin: 0 auto;
+    margin-top: 5rem;
 `;
 
 const ContenedorFormulario = styled.div`
@@ -25,16 +27,28 @@ function App() {
         },
     });
 
-    const { datos, cotizacion } = resumen;
+    const [cargando, setCargando] = useState(false);
+
+    const {datos, cotizacion} = resumen;
 
     return (
         <Contenedor>
-            <Header titulo='Cotizador de Seguros' />
+            <Header titulo='Cotizador de Seguros'/>
             <ContenedorFormulario>
-                <Formulario setResumen={setResumen} />
+                <Formulario setResumen={setResumen} setCargando={setCargando}/>
+                {
+                    cargando
+                        ? <Spinner/>
+                        : null
+                }
+                <Resumen datos={datos}/>
 
-                <Resumen datos={datos} />
-                <Resultado cotizacion={cotizacion} />
+                {
+                    !cargando
+                        ? <Resultado cotizacion={cotizacion}/>
+                        : null
+                }
+
             </ContenedorFormulario>
         </Contenedor>
     );

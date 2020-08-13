@@ -11,22 +11,22 @@ body {
 }
 ul {
     list-style: none;
-    padding: none;
-    margin: none;
+    padding: 0;
+    margin: 0;
 }
 span.resultado {
     position: relative;
     width: 100%;
 }
 .resultado-enter {
-    transition: 0.5s;
+    transition: .5s;
 }
 .resultado-enter.resultado-enter-active {
     transform: translateY(0%);
 }
 .resultado-exit {
     transform: translateY(0);
-    transition: 0.5s;
+    transition: .5s;
     position: absolute;
     left: 0;
     bottom: 0;
